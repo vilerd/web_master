@@ -109,7 +109,7 @@ sudo debconf-set-selections <<< 'mysql-server-5.7 mysql-server/root_password_aga
 sudo apt-get install -y mysql-server mysql-client
 echo -e "\e[1;32mInstall MySQL\e[0m"
 echo -e "\e[1;34mPASS='$MYSQL'\e[0m"
-echo "Install MySQL-pass='$MYSQL'" >> /tmp/bootlog/logboot.txt
+echo "Install MySQL" >> /tmp/bootlog/logboot.txt
 
 mysql -u root -p$MYSQL <<EOF
 CREATE DATABASE $WP1;
