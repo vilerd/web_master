@@ -19,7 +19,7 @@ wordpress!
 Скрипт установит: system update, ssh, iptables, fail2ban, vim, mc, ntp, mysql server, nginx, php,
 wordpress!
 
-1. Запустите скрипт webmaster.s
+1. Запустите скрипт webmaster.sh
 2. Если вы готовы начать установку, выберете "y". Если вы не уверены выберете "n"
 3. Заполните предлагаемые поля, если вы совершили ошибку прекратите выполнение!
 4. Задание пароли и список установленных программ находится /tmp/bootlog/logboot.txt
