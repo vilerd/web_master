@@ -1,21 +1,6 @@
 #!/bin/bash
 
-sudo mkdir /tmp/boot
-sudo mkdir /tmp/bootlog
-
 echo -e "\e[1;36m~~~Please! Read before installing README!~~~\e[0m"
-
-echo "Do you want to install this? (y/N) "
-read item
-case "$item" in
-    y|Y) echo -e "\e[1;32mGO!\e[0m"
-        ;;
-    n|N) echo -e "\e[1;31mGoodbye!\e[0m" && exit
-        exit 0
-        ;;
-    *) echo -e "\e[1;31mError!!! Incorrect choice! Try again!\e[0m" && exit
-        ;;
-esac
 
 echo -n -e "\e[1;32mEnter SSH port:\e[0m"
 read -s SSH
@@ -32,6 +17,24 @@ echo
 echo -n -e "\e[1;32mEnter password for database:\e[0m"
 read -s WP3
 echo
+
+echo -e "\e[1;34mSSH port ='$SSH'\e[0m"
+echo -e "\e[1;34mMySQL-password ='$MYSQL'\e[0m"
+echo -e "\e[1;34mName wordpress database = '$WP1'\e[0m"
+echo -e "\e[1;34mName user database = '$WP2'\e[0m"
+echo -e "\e[1;34mPassword database = '$WP3'\e[0m"
+
+echo "Are the entered data correct? (y/N) "
+read item
+case "$item" in
+    y|Y) echo -e "\e[1;32mGO!\e[0m"
+        ;;
+    n|N) echo -e "\e[1;31mGoodbye!\e[0m" && exit
+        exit 0
+        ;;
+    *) echo -e "\e[1;31mError!!! Incorrect choice! Try again!\e[0m" && exit
+        ;;
+esac
 
 echo -e "\e[1;34mLogging is performed in /tmp/bootlog/logboot.txt\e[0m"
 echo "Start" >> /tmp/bootlog/logboot.txt
