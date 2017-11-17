@@ -9,20 +9,20 @@ echo -n -e "\e[1;32mEnter password for root user mysql:\e[0m"
 read -s MYSQL
 echo
 echo -n -e "\e[1;32mEnter name wordpress database:\e[0m"
-read -s WP1
+read -s BASENAME
 echo
 echo -n -e "\e[1;32mEnter name user database:\e[0m"
-read -s WP2
+read -s USERNAME
 echo
 echo -n -e "\e[1;32mEnter password for database:\e[0m"
-read -s WP3
+read -s PASSWD
 echo
 
 echo -e "\e[1;34mSSH port ='$SSH'\e[0m"
 echo -e "\e[1;34mMySQL-password ='$MYSQL'\e[0m"
-echo -e "\e[1;34mName wordpress database = '$WP1'\e[0m"
-echo -e "\e[1;34mName user database = '$WP2'\e[0m"
-echo -e "\e[1;34mPassword database = '$WP3'\e[0m"
+echo -e "\e[1;34mName wordpress database = '$BASENAME'\e[0m"
+echo -e "\e[1;34mName user database = '$USERNAME'\e[0m"
+echo -e "\e[1;34mPassword database = '$PASSWD'\e[0m"
 
 echo "Are the entered data correct? (y/N) "
 read item
@@ -114,9 +114,9 @@ echo -e "\e[1;32mInstall MySQL\e[0m"
 echo "Install MySQL" >> /tmp/bootlog/logboot.txt
 
 mysql -u root -p$MYSQL <<EOF
-CREATE DATABASE $WP1;
-CREATE USER $WP2@localhost IDENTIFIED BY '$WP3';
-grant all privileges on wordpress.* to '$WP2'@'localhost';
+CREATE DATABASE $BASENAME;
+CREATE USER $USERNAME@localhost IDENTIFIED BY '$PASSWD';
+grant all privileges on $BASENAME.* to '$USERNAME'@'localhost';
 FLUSH PRIVILEGES;
 EOF
 echo -e "\e[1;32mDatabase WordPress created\e[0m"
@@ -146,9 +146,9 @@ sudo cp /tmp/boot/wordpress/wp-config-sample.php  /tmp/boot/wordpress/wp-config.
 echo -e "\e[1;32mDownload Wordpress and its preparation\e[0m"
 echo "Download Wordpress and its preparation" >> /tmp/bootlog/logboot.txt
 
-sudo sed -i "s/database_name_here/$WP1/"  /tmp/boot/wordpress/wp-config.php
-sudo sed -i "s/username_here/$WP2/"       /tmp/boot/wordpress/wp-config.php
-sudo sed -i "s/password_here/$WP3/"   /tmp/boot/wordpress/wp-config.php
+sudo sed -i "s/database_name_here/$BASENAME/"  /tmp/boot/wordpress/wp-config.php
+sudo sed -i "s/username_here/$USERNAME/"       /tmp/boot/wordpress/wp-config.php
+sudo sed -i "s/password_here/$PASSWD/"   /tmp/boot/wordpress/wp-config.php
 sudo sed -i "s/wp_/wnotp_/"               /tmp/boot/wordpress/wp-config.php
 
 SALT=$(curl -L https://api.wordpress.org/secret-key/1.1/salt/)
@@ -177,15 +177,15 @@ echo "Garage remove" >> /tmp/bootlog/logboot.txt
 
 echo -e "\e[1;34mSSH port ='$SSH'\e[0m"
 echo -e "\e[1;34mMySQL-password ='$MYSQL'\e[0m"
-echo -e "\e[1;34mName wordpress database = 'WP1'\e[0m"
-echo -e "\e[1;34mName user database = 'WP2'\e[0m"
-echo -e "\e[1;34mPassword database = 'WP3'\e[0m"
+echo -e "\e[1;34mName wordpress database = '$BASENAME'\e[0m"
+echo -e "\e[1;34mName user database = '$USERNAME'\e[0m"
+echo -e "\e[1;34mPassword database = '$PASSWD'\e[0m"
 
 echo "SSH port = $SSH" >> /tmp/bootlog/logboot.txt
 echo "MySQL-pass = $MYSQL" >> /tmp/bootlog/logboot.txt
-echo "Name wordpress database = WP1" >> /tmp/bootlog/logboot.txt
-echo "Name user database = WP2" >> /tmp/bootlog/logboot.txt
-echo "Password database = WP3" >> /tmp/bootlog/logboot.txt
+echo "Name wordpress database = $BASENAME" >> /tmp/bootlog/logboot.txt
+echo "Name user database = $USERNAME" >> /tmp/bootlog/logboot.txt
+echo "Password database = $PASSWD" >> /tmp/bootlog/logboot.txt
 
 echo "Created by ~vilerd©~  | Version 2.0" >> /tmp/bootlog/logboot.txt
 echo -e "\e[1;33mCreated by ~vilerd©~ | Version 2.0\e[0m"
