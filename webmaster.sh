@@ -3,12 +3,12 @@
 sudo mkdir /tmp/boot
 sudo mkdir /tmp/bootlog
 
-cat Hello.txt
+echo -e "\e[1;36m~~~Please! Read before installing README!~~~\e[0m"
 
 echo "Do you want to install this? (y/N) "
 read item
 case "$item" in
-    y|Y) echo -e "\e[1;32mOK!\e[0m"
+    y|Y) echo -e "\e[1;32mGO!\e[0m"
         ;;
     n|N) echo -e "\e[1;31mGoodbye!\e[0m" && exit
         exit 0
@@ -20,7 +20,7 @@ esac
 echo -n -e "\e[1;32mEnter SSH port:\e[0m"
 read -s SSH
 echo
-echo -n -e "\e[1;32mEnter pass for root user mysql:\e[0m"
+echo -n -e "\e[1;32mEnter password for root user mysql:\e[0m"
 read -s MYSQL
 echo
 echo -n -e "\e[1;32mEnter name wordpress database:\e[0m"
@@ -29,7 +29,7 @@ echo
 echo -n -e "\e[1;32mEnter name user database:\e[0m"
 read -s WP2
 echo
-echo -n -e "\e[1;32mEnter pass for database:\e[0m"
+echo -n -e "\e[1;32mEnter password for database:\e[0m"
 read -s WP3
 echo
 
@@ -118,8 +118,6 @@ grant all privileges on wordpress.* to '$WP2'@'localhost';
 FLUSH PRIVILEGES;
 EOF
 echo -e "\e[1;32mDatabase WordPress created\e[0m"
-echo -e "\e[1;34mDB USER='$WP2' PASS='$WP3'\e[0m"
-echo "Created DB USER='$WP2' PASS='$WP3'" >> /tmp/bootlog/logboot.txt
 
 sudo apt install nginx -y
 echo -e "\e[1;32mInstall nginx\e[0m"
@@ -164,7 +162,6 @@ echo "Wordpress prepared" >> /tmp/bootlog/logboot.txt
 echo -e "\e[1;32mnginx & php restart\e[0m"
 echo "nginx & php restart" >> /tmp/bootlog/logboot.txt
 
-
 wite=`curl http://smart-ip.net/myip | grep -o -E "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)"`
 echo -e "\e[1;36mYour external IP=$wite\e[0m"
 localip=`ip route show | grep -o -E "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)"`
@@ -172,11 +169,22 @@ echo "$localip" >> /tmp/boot/ip.txt
 ip=`cat /tmp/boot/ip.txt | sed -n '3p' | awk '{print $1}'`
 echo -e "\e[1;36mYour local IP=$ip\e[0m"
 
-
 rm -r /tmp/boot
 echo -e "\e[1;31mGarage remove\e[0m"
 echo "Garage remove" >> /tmp/bootlog/logboot.txt
 
-echo "Created by ~vilerd©~  | Version 1.4" >> /tmp/bootlog/logboot.txt
-echo -e "\e[1;33mCreated by ~Vilerd~ | Version 1.3\e[0m"
+echo -e "\e[1;34mSSH port ='$SSH'\e[0m"
+echo -e "\e[1;34mMySQL-password ='$MYSQL'\e[0m"
+echo -e "\e[1;34mName wordpress database = 'WP1'\e[0m"
+echo -e "\e[1;34mName user database = 'WP2'\e[0m"
+echo -e "\e[1;34mPassword database = 'WP3'\e[0m"
+
+echo "SSH port ='$SSH'" >> /tmp/bootlog/logboot.txt
+echo "MySQL-pass ='$MYSQL'" >> /tmp/bootlog/logboot.txt
+echo "Name wordpress database = 'WP1'" >> /tmp/bootlog/logboot.txt
+echo "Name user database = 'WP2'" >> /tmp/bootlog/logboot.txt
+echo "Password database = 'WP3'" >> /tmp/bootlog/logboot.txt
+
+echo "Created by ~vilerd©~  | Version 2.0" >> /tmp/bootlog/logboot.txt
+echo -e "\e[1;33mCreated by ~Vilerd~ | Version 2.0\e[0m"
 echo -e "\e[1;33m~~~BYE~~~\e[0m"
