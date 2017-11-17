@@ -179,12 +179,12 @@ echo -e "\e[1;34mName wordpress database = 'WP1'\e[0m"
 echo -e "\e[1;34mName user database = 'WP2'\e[0m"
 echo -e "\e[1;34mPassword database = 'WP3'\e[0m"
 
-echo "SSH port ='$SSH'" >> /tmp/bootlog/logboot.txt
-echo "MySQL-pass ='$MYSQL'" >> /tmp/bootlog/logboot.txt
-echo "Name wordpress database = 'WP1'" >> /tmp/bootlog/logboot.txt
-echo "Name user database = 'WP2'" >> /tmp/bootlog/logboot.txt
-echo "Password database = 'WP3'" >> /tmp/bootlog/logboot.txt
+echo "SSH port = $SSH" >> /tmp/bootlog/logboot.txt
+echo "MySQL-pass = $MYSQL" >> /tmp/bootlog/logboot.txt
+echo "Name wordpress database = WP1" >> /tmp/bootlog/logboot.txt
+echo "Name user database = WP2" >> /tmp/bootlog/logboot.txt
+echo "Password database = WP3" >> /tmp/bootlog/logboot.txt
 
 echo "Created by ~vilerd©~  | Version 2.0" >> /tmp/bootlog/logboot.txt
-echo -e "\e[1;33mCreated by ~Vilerd~ | Version 2.0\e[0m"
+echo -e "\e[1;33mCreated by ~vilerd©~ | Version 2.0\e[0m"
 echo -e "\e[1;33m~~~BYE~~~\e[0m"
