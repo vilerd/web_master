@@ -1,6 +1,9 @@
 #!/bin/bash
 
-cat /tmp/web_master/Hello.txt
+sudo mkdir /tmp/boot
+sudo mkdir /tmp/bootlog
+
+cat Hello.txt
 
 echo "Do you want to install this? (y/N) "
 read item
@@ -14,9 +17,21 @@ case "$item" in
         ;;
 esac
 
-echo -e "\e[1;36m~~~The magic begins~~~\e[0m"
-echo -e "\e[1;36m~~~START~~~\e[0m"
-echo -e "\e[1;33mVersion 1.4\e[0m"
+echo -n -e "\e[1;32mEnter SSH port:\e[0m"
+read -s SSH
+echo
+echo -n -e "\e[1;32mEnter pass for root user mysql:\e[0m"
+read -s MYSQL
+echo
+echo -n -e "\e[1;32mEnter name wordpress database:\e[0m"
+read -s WP1
+echo
+echo -n -e "\e[1;32mEnter name user database:\e[0m"
+read -s WP2
+echo
+echo -n -e "\e[1;32mEnter pass for database:\e[0m"
+read -s WP3
+echo
 
 echo -e "\e[1;34mLogging is performed in /tmp/bootlog/logboot.txt\e[0m"
 echo "Start" >> /tmp/bootlog/logboot.txt
@@ -38,8 +53,6 @@ sudo apt-get update && apt-get upgrade -y
 echo -e "\e[1;32mSystem updated\e[0m"
 echo "System updated" >> /tmp/bootlog/logboot.txt
 
-source ./config.cfg
-echo "Порт $SSH"
 
 sudo apt-get install ssh -y
 sed -i '/Port 22/c\Port '$SSH'' /etc/ssh/sshd_config
@@ -48,14 +61,14 @@ echo -e "\e[1;32mThe SSH package is installed The connection port is specified\e
 /etc/init.d/ssh restart
 echo "Install SSH Port=$SSH" >> /tmp/bootlog/logboot.txt
 
-sudo mv /tmp/web_master/demonforiptables /etc/init.d/iptables
+sudo mv demonforiptables /etc/init.d/iptables
 sudo chmod +x /etc/init.d/iptables
 sudo mkdir /etc/iptables.d
-sed -i '/-A PREROUTING -p tcp --dport 22 -j REDIRECT --to-ports 2202/c\-A PREROUTING -p tcp --dport 22 -j REDIRECT --to-ports '$SSH'' /tmp/web_master/iptablesactive
+sed -i '/-A PREROUTING -p tcp --dport 22 -j REDIRECT --to-ports 2202/c\-A PREROUTING -p tcp --dport 22 -j REDIRECT --to-ports '$SSH'' iptablesactive
 sleep 1s
-sudo  mv /tmp/web_master/iptablesactive /etc/iptables.d/active
+sudo  mv iptablesactive /etc/iptables.d/active
 sleep 1s
-sudo mv /tmp/web_master/iptablesinactive /etc/iptables.d/inactive
+sudo mv iptablesinactive /etc/iptables.d/inactive
 sleep 1s
 /etc/init.d/iptables start
 iptables-save
@@ -69,7 +82,7 @@ echo "Iptables active!" >> /tmp/bootlog/logboot.txt
 sudo apt-get install fail2ban -y
 sed -i '/port     = 2202/c\port     = '$SSH'' /tmp/web_master/fail2ban2
 sed -i '/action   = iptables/c\action   = iptables[name=SSH, port='$SSH', protocol=tcp]' /tmp/web_master/fail2ban2
-mv /tmp/web_master/fail2ban2 /etc/fail2ban/jail.local
+mv fail2ban2 /etc/fail2ban/jail.local
 /etc/init.d/fail2ban restart
 echo -e "\e[1;32mFail2ban istall\e[0m"
 echo "Fail2ban install | Fail2ban active!" >> /tmp/bootlog/logboot.txt
@@ -90,8 +103,6 @@ sudo apt install curl -y
 echo -e "\e[1;32mInstall curl\e[0m"
 echo "Install curl" >> /tmp/bootlog/logboot.txt
 
-source ./config.cfg
-echo "Пароль mysql $MYSQL"
 
 sudo debconf-set-selections <<< 'mysql-server-5.7 mysql-server/root_password password '$MYSQL''
 sudo debconf-set-selections <<< 'mysql-server-5.7 mysql-server/root_password_again password '$MYSQL''
@@ -126,7 +137,7 @@ sudo rm /var/www/html/index.nginx-debian.html
 sudo rm /etc/nginx/sites-available/default
 sudo rm /etc/nginx/sites-enabled/default
 
-sudo mv /tmp/web_master/virtualhostwp /etc/nginx/sites-available/wordpress
+sudo mv virtualhostwp /etc/nginx/sites-available/wordpress
 sudo ln -s /etc/nginx/sites-available/wordpress /etc/nginx/sites-enabled/wordpress
 
 wget http://wordpress.org/latest.tar.gz -q -P /tmp/boot
@@ -160,6 +171,7 @@ localip=`ip route show | grep -o -E "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25
 echo "$localip" >> /tmp/boot/ip.txt
 ip=`cat /tmp/boot/ip.txt | sed -n '3p' | awk '{print $1}'`
 echo -e "\e[1;36mYour local IP=$ip\e[0m"
+
 
 rm -r /tmp/boot
 echo -e "\e[1;31mGarage remove\e[0m"
