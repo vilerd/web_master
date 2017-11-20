@@ -90,7 +90,7 @@ mv fail2ban2 /etc/fail2ban/jail.local
 echo -e "\e[1;32mFail2ban istall\e[0m"
 echo "Fail2ban install | Fail2ban active!" >> /tmp/bootlog/logboot.txt
 
-udo apt-get install vim -y
+sudo apt-get install vim -y
 echo -e "\e[1;32mInstall vim\e[0m"
 echo "Install vim" >> /tmp/bootlog/logboot.txt
 
