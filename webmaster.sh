@@ -108,6 +108,9 @@ sudo apt install curl -y
 echo -e "\e[1;32mInstall curl\e[0m"
 echo "Install curl" >> /tmp/bootlog/logboot.txt
 
+sudo apt install mycli -y
+echo -e "\e[1;32mInstall mycli\e[0m"
+echo "Install mycli" >> /tmp/bootlog/logboot.txt
 
 sudo debconf-set-selections <<< 'mysql-server-5.7 mysql-server/root_password password '$MYSQL''
 sudo debconf-set-selections <<< 'mysql-server-5.7 mysql-server/root_password_again password '$MYSQL''
