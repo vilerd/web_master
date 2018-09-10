@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cat baner
+
 echo -e "\e[1;36m~~~Please! Read before installing README!~~~\e[0m"
 
 echo -n -e "\e[1;32mEnter SSH port:\e[0m"
