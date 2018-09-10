@@ -3,7 +3,7 @@
 #############################  Hello  ########################################################################
 
 Hello! This is a bash script for installing Wordpress, it will install a web server and everything you need to
-create a personal website! The script is checked. You can contact me at Telegram @vilerd. Good luck!
+create a personal website! The script is checked. You can contact me at Telegram @vilerd_93. Good luck!
 
 The script will install: system update, ssh, iptables, fail2ban, vim, mc, ntp, mysql server, nginx, php,
 wordpress!
@@ -15,7 +15,7 @@ wordpress!
 5. For security after installation, delete the logboot.txt file, it contains passwords for accessing the server and the database !!!
 
 Привет! Это bash скрипт для установки Wordpress , он установит web - сервер и все что нужно для создания
-персонального сайта! Скрипт проверен. Связатся со мной можно в Телеграм @vilerd . Удачи!
+персонального сайта! Скрипт проверен. Связатся со мной можно в Телеграм @vilerd_93 . Удачи!
 
 Скрипт установит: system update, ssh, iptables, fail2ban, vim, mc, ntp, mysql server, nginx, php,
 wordpress!
