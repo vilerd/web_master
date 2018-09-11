@@ -180,7 +180,7 @@ echo -e "\e[1;36mYour local IP=$ip\e[0m"
 
 rm -r /tmp/boot
 echo -e "\e[1;31mGarage remove\e[0m"
-echo "Garage remove" >> /tmp/bootlog/logboot.txt
+echo "Garbage remove" >> /tmp/bootlog/logboot.txt
 
 echo -e "\e[1;34mSSH port ='$SSH'\e[0m"
 echo -e "\e[1;34mMySQL-password ='$MYSQL'\e[0m"
